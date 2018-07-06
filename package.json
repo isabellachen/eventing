@@ -1,0 +1,29 @@
+{
+  "name": "eventing",
+  "version": "1.0.0",
+  "description": "Facebook Developer Circle Hackaton July 2018",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://marcoantonioghiani01:messenger2008@github.com/marcoantonioghiani01/eventing.git"
+  },
+  "author": "Isabella Chen - Leonardo Di Vittorio - Marlon Becker - Marco Antonio Ghiani",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/marcoantonioghiani01/eventing/issues"
+  },
+  "homepage": "https://github.com/marcoantonioghiani01/eventing#readme",
+  "devDependencies": {
+    "eslint-config-airbnb-standard": "1.6.6",
+    "nodemon": "1.17.5"
+  },
+  "dependencies": {
+    "koa": "2.5.1",
+    "koa-cors": "0.0.16",
+    "koa-logger": "3.2.0",
+    "koa-router": "7.4.0"
+  }
+}
