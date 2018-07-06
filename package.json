@@ -4,6 +4,7 @@
   "description": "Facebook Developer Circle Hackaton July 2018",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -26,6 +27,7 @@
     "dotenv": "6.0.0",
     "graphql": "0.13.2",
     "graphql-tools": "3.0.5",
+    "dotenv": "6.0.0",
     "koa": "2.5.1",
     "koa-logger": "3.2.0",
     "koa-router": "7.4.0"
