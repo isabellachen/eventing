@@ -13,6 +13,17 @@ const errorNotFound = require('./middlewares/errorNotFound');
 const PORT = process.env.PORT || 3000;
 const ENV = process.env.NODE_ENV || 'development';
 
+const c = require('./controllers/user.controller');
+
+c.addUser({
+  id: 1234567890,
+  first_name: 'gbfjhsb',
+  last_name: 'gbfjhsb'
+});
+
+
+
+
 const app = new Koa();
 
 app

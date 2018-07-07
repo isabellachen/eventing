@@ -26,6 +26,7 @@ module.exports.addUserRequest = async (ctx, next) => {
       status: false,
       location: point,
     });
+    ctx.status = 201;
   } else {
     return next();
   }

@@ -4,11 +4,12 @@ module.exports = {
   up: (queryInterface, Sequelize) => queryInterface.createTable('UserRequests', {
     id: {
       allowNull: false,
+      autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER
     },
     UserId: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.BIGINT,
       onDelete: 'CASCADE',
       references: {
         model: 'Users',
