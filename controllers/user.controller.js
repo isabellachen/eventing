@@ -10,21 +10,21 @@ module.exports.addUser = async (user) => {
     last_name,
     profile_pic
   } = user;
+
   if (id && first_name && last_name) {
     const userInfo = await models.User.findOne({
       where: {
-        facebookId: id.toString(),
+        id,
       },
     });
-
 
     if (userInfo) return userInfo;
 
     await models.User.create({
+      id,
       firstName: first_name,
       lastName: last_name,
       pictureUrl: profile_pic,
-      facebookId: id,
     });
   }
 };

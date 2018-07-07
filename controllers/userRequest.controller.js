@@ -2,14 +2,16 @@
 
 const models = require('../models');
 
-module.exports.addUserRequest = async (userRequest, next) => {
-  if (userRequest) {
+module.exports.addUserRequest = async (ctx, next) => {
+  if (ctx.method !== 'POST') return next();
+
+  if (ctx.request.body) {
     const {
       categories,
       location,
       dates,
       UserId
-    } = userRequest;
+    } = ctx.request.body;
 
     const point = {
       type: 'Point',

@@ -4,12 +4,8 @@ module.exports = {
   up: (queryInterface, Sequelize) => queryInterface.createTable('Users', {
     id: {
       allowNull: false,
-      autoIncrement: true,
       primaryKey: true,
-      type: Sequelize.INTEGER
-    },
-    facebookId: {
-      type: Sequelize.STRING
+      type: Sequelize.BIGINT
     },
     firstName: {
       type: Sequelize.STRING

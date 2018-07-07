@@ -9,7 +9,7 @@ module.exports.addEvent = async (event) => {
   } = event;
 
   if (categoryId) {
-    const event = await models.Event.create({
+    await models.Event.create({
       CategoryId: categoryId,
       status
     });
