@@ -4,11 +4,14 @@ const cors = require('@koa/cors');
 const logger = require('koa-logger')();
 const bodyparser = require('koa-bodyparser');
 
+require('./db');
 const router = require('./router');
 const errorHandler = require('./middlewares/errorHandler');
 const errorNotFound = require('./middlewares/errorNotFound');
 
+// Environment variables
 const PORT = process.env.PORT || 3000;
+const ENV = process.env.NODE_ENV || 'development';
 
 const app = new Koa();
 
@@ -23,7 +26,7 @@ app
 app.use(errorNotFound).use(errorHandler);
 
 // Initialize server
-app.listen(PORT, err => {
-  err && console.error(err); // eslint-disable-line no-console
-  console.log(`🌍 Running server on ${PORT}`); // eslint-disable-line no-console
+app.listen(PORT, (err) => {
+  err && console.error('❌ Unable to connect to the server:', err); // eslint-disable-line no-console
+  console.log(`🌍 Running server on ${PORT} - ${ENV} mode!`); // eslint-disable-line no-console
 });
