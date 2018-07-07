@@ -30,13 +30,8 @@ module.exports = {
     location: {
       type: Sequelize.GEOMETRY
     },
-    startTime: {
-      allowNull: false,
-      type: Sequelize.DATE
-    },
-    endTime: {
-      allowNull: false,
-      type: Sequelize.DATE
+    dates: {
+      type: Sequelize.ARRAY(Sequelize.TEXT)
     },
     status: {
       type: Sequelize.BOOLEAN

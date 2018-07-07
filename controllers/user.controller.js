@@ -2,7 +2,7 @@
 
 const models = require('../models');
 
-// Create a new user
+// Add a new user
 module.exports.addUser = async (user) => {
   const {
     id,

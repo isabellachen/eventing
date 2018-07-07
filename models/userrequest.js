@@ -4,8 +4,7 @@
 module.exports = (sequelize, DataTypes) => {
   const UserRequest = sequelize.define('UserRequest', {
     categories: DataTypes.ARRAY(DataTypes.TEXT),
-    startTime: DataTypes.DATE,
-    endTime: DataTypes.DATE,
+    dates: DataTypes.ARRAY(DataTypes.TEXT),
     location: DataTypes.GEOMETRY('POINT', 4326),
     status: DataTypes.BOOLEAN,
   }, {});
