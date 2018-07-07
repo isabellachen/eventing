@@ -5,21 +5,20 @@ const fetch = require('cross-fetch')
 const userController = require('./user.controller');
 
 // Handles messages events
-function handleMessage(sender_psid, received_message) {
+async function handleMessage(sender_psid, received_message) {
   if (received_message.quick_reply) {
     const payload = JSON.parse(received_message.quick_reply.payload)
     if (payload.type === 'EVENT_ACCEPTED') {
-      // notify other users in the room notifyUsers(payload.event)
+      // notify other users in the room notifyUsers(payload)
       // join room
     }
     if (payload.type === 'EVENT_REJECTED') {
       console.log('event rejected')
-      // ---
     } 
   } else {
-    //if a message is sent from a user, check if the user is in an event
-    //if he is, assume the user is trying to talk to the other people in the event
-    //broadcastMessage(sender_psid)
+    // if a message is sent from a user, check if the user is in an event
+    // if he is, assume the user is trying to talk to the other people in the event
+    // broadcastMessage(sender_psid)
   }
 }
 
@@ -30,6 +29,12 @@ function handlePostback(sender_psid, received_postback) {
     saveUser(sender_psid)
     callSendAPI(sender_psid, response)
   }
+}
+
+async function saveUser(sender_psid) {
+  const user = await fetch(`https://graph.facebook.com/v3.0/${sender_psid}?access_token=${process.env.PAGE_ACCESS_TOKEN}`)
+    .then(res => res.json());
+  userController.addUser(user)
 }
 
 // Sends response messages via the Send API
@@ -51,12 +56,6 @@ function callSendAPI(sender_psid, response) {
   });
 }
 
-async function saveUser(sender_psid) {
-  const user = await fetch(`https://graph.facebook.com/v3.0/${sender_psid}?access_token=${process.env.PAGE_ACCESS_TOKEN}`)
-    .then(res => res.json());
-  userController.addUser(user)
-}
-
 const startQuery = (ctx) => {
   try {
   let body = ctx.request.body;
@@ -67,6 +66,7 @@ const startQuery = (ctx) => {
       let webhook_event = entry.messaging[0]
       let sender_psid = webhook_event.sender.id;
       if (webhook_event.message) {    
+        console.log(webhook_event.message)
         handleMessage(sender_psid, webhook_event.message)
       } else if (webhook_event.postback.payload) {
         handlePostback(sender_psid, webhook_event.postback)

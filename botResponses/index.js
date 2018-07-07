@@ -51,12 +51,12 @@ function eventFoundResponse (event) {
       {
         content_type: "text",
         title: "Yes",
-        payload: `{"type":"EVENT_ACCEPTED", "event":"${event.id}", "status": "true"}`
+        payload: `{"type":"EVENT_ACCEPTED", "eventId":"${event.id}", "status": "true"}`
       },
       {
         content_type: "text",
         title: "No",
-        payload: `{"type":"EVENT_REJECTED", "event":"${event.id}", "status": "false"}`
+        payload: `{"type":"EVENT_REJECTED", "eventId":"${event.id}", "status": "false"}`
       },
     ]
   };
