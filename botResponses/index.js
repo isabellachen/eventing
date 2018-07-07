@@ -16,13 +16,11 @@ function setPreferences(sender_psid) {
       }
     }
   };
-
   return response;
 }
 
 function eventPendingResponse () {
-  return {text: 'You will hear from us soon'}
-
+  return {text: 'You will hear from us soon!'}
   function temp() {
     // return {
     //   attachment: {

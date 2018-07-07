@@ -2,7 +2,7 @@ const controller = require('./webhook.controller')
 const botResponses = require('../botResponses')
 
 function eventPending (sender_psid) {
-  controller.callSendAPI(sender_psid, botResponses.eventPendingResponse())
+  controller.callSendAPI(1921533581204203, botResponses.eventPendingResponse())
 }
 
 function eventFound (event) {

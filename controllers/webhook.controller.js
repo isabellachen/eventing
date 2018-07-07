@@ -6,7 +6,21 @@ const userController = require('./user.controller');
 
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
-  //
+  if (received_message.quick_reply) {
+    const payload = JSON.parse(received_message.quick_reply.payload)
+    if (payload.type === 'EVENT_ACCEPTED') {
+      // notify other users in the room notifyUsers(payload.event)
+      // join room
+    }
+    if (payload.type === 'EVENT_REJECTED') {
+      console.log('event rejected')
+      // ---
+    } 
+  } else {
+    //if a message is sent from a user, check if the user is in an event
+    //if he is, assume the user is trying to talk to the other people in the event
+    //broadcastMessage(sender_psid)
+  }
 }
 
 // Handles messaging_postbacks events
@@ -52,7 +66,7 @@ const startQuery = (ctx) => {
     body.entry.forEach(function (entry) {
       let webhook_event = entry.messaging[0]
       let sender_psid = webhook_event.sender.id;
-      if (webhook_event.message) {     
+      if (webhook_event.message) {    
         handleMessage(sender_psid, webhook_event.message)
       } else if (webhook_event.postback.payload) {
         handlePostback(sender_psid, webhook_event.postback)
