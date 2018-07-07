@@ -1,7 +1,9 @@
 const controller = require('./webhook.controller')
-const botResponses = require('../botResponses')
+const botResponses = require('../botResponses/responses')
+//functions for bot to send messages without receiving a response first
 
 function eventPending (sender_psid) {
+  //when the user has sent their preferences from the FE
   controller.callSendAPI(1921533581204203, botResponses.eventPendingResponse())
 }
 

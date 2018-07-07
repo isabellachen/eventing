@@ -21,27 +21,6 @@ function setPreferences(sender_psid) {
 
 function eventPendingResponse () {
   return {text: 'You will hear from us soon!'}
-  function temp() {
-    // return {
-    //   attachment: {
-    //     type: "template",
-    //     payload: {
-    //       template_type: "media",
-    //       elements: [
-    //         {
-    //           media_type: "image",
-    //           attachment_id: "1919145035043221",
-    //           buttons: [
-    //             type: "postback",
-    //             payload: "thank you",
-    //             title: "Thanks!"
-    //           ]
-    //         }
-    //       ]
-    //     }
-    //   }
-    // }
-  }
 }
 
 function eventFoundResponse (event) {
@@ -60,6 +39,12 @@ function eventFoundResponse (event) {
       },
     ]
   };
+}
+
+function notifyUsersResponse (user, event) {
+  return {
+    text: `${user.firstName} ${user.lastName} has been added to event ${event.name}`
+  }
 }
 
 module.exports = {

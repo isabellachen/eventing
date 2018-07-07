@@ -1,9 +1,12 @@
 const request = require('request')
-const helpers = require('../botResponses')
+const helpers = require('../botResponses/responses')
 const fetch = require('cross-fetch')
 
 const userController = require('./user.controller');
+const messagesController = require('./messages.controller');
 
+const activeUsers = {}
+const activeEvents = {}
 // Handles messages events
 async function handleMessage(sender_psid, received_message) {
   if (received_message.quick_reply) {
@@ -17,6 +20,12 @@ async function handleMessage(sender_psid, received_message) {
     } 
   } else {
     // if a message is sent from a user, check if the user is in an event
+    let user
+    activeUsers[sender_psid] ? user = activeUsers[sender_psid] : await getUserFromDb(sender_psid)
+    const event = checkIfUserIsInEvent(sender_psid)
+    if (event) {
+      broadcastMessage(user, event, received_message.text)
+    }
     // if he is, assume the user is trying to talk to the other people in the event
     // broadcastMessage(sender_psid)
   }
