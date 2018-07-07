@@ -3,6 +3,7 @@ const helpers = require('../botResponses/responses')
 const fetch = require('cross-fetch')
 
 const userController = require('./user.controller');
+const userRequestController = require('./userRequest.controller');
 const messagesController = require('./messages.controller');
 
 const activeUsers = {}
@@ -12,11 +13,12 @@ async function handleMessage(sender_psid, received_message) {
   if (received_message.quick_reply) {
     const payload = JSON.parse(received_message.quick_reply.payload)
     if (payload.type === 'EVENT_ACCEPTED') {
+      userRequestController.updateRequestStatus(sender_psid, payload.eventId, 'ACCEPTED')
       // notify other users in the room notifyUsers(payload)
       // join room
     }
     if (payload.type === 'EVENT_REJECTED') {
-      console.log('event rejected')
+      userRequestController.updateRequestStatus(sender_psid, payload.eventId, 'REJECTED')
     } 
   } else {
     // if a message is sent from a user, check if the user is in an event
