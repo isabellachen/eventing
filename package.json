@@ -7,10 +7,6 @@
     "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://marcoantonioghiani01:messenger2008@github.com/marcoantonioghiani01/eventing.git"
-  },
   "author": "Isabella Chen - Leonardo Di Vittorio - Marlon Becker - Marco Antonio Ghiani",
   "license": "MIT",
   "bugs": {
