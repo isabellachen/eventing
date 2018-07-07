@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     categories: DataTypes.ARRAY(DataTypes.TEXT),
     dates: DataTypes.ARRAY(DataTypes.TEXT),
     location: DataTypes.GEOMETRY('POINT', 4326),
-    status: DataTypes.BOOLEAN,
+    status: DataTypes.STRING,
   }, {});
   UserRequest.associate = (models) => {
     // associations can be defined here
