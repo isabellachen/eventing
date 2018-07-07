@@ -65,20 +65,20 @@ async function saveUser(sender_psid) {
   //saveUserToDb - from Marco
   const user = await fetch(`https://graph.facebook.com/v3.0/${sender_psid}?access_token=${process.env.PAGE_ACCESS_TOKEN}`)
     .then(res => res.json());
-  return
+  controller.addUser(user)
 }
 
 const startQuery = (ctx) => {
   try {
   let body = ctx.request.body;
-  // const c_user = ctx.cookies.get(c_user)
-  console.log('C_USER:  ', c_user)
+  
   if (body.object === 'page') {
 
     body.entry.forEach(function (entry) {
       let webhook_event = entry.messaging[0]
       let sender_psid = webhook_event.sender.id;
-      console.log(webhook_event.sender)
+
+      console.log(webhook_event)
       if (webhook_event.message) {     
         saveUser(sender_psid)
         handleMessage(sender_psid, webhook_event.message)
