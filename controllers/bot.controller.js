@@ -11,7 +11,7 @@ function eventFound (event) {
   //inform the matched users an event has been found
   event = {users: [{id: 1921533581204203}], description:'beach volleyball'}
   event.users.forEach(user => {
-    controller.callSendAPI(user.id, botResponses.eventFoundResponse(event))
+    controller.callSendAPI(user.id, botResponses.eventFoundResponse(event, user.id))
   })
 }
 

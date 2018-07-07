@@ -23,7 +23,7 @@ function eventPendingResponse () {
   return {text: 'You will hear from us soon!'}
 }
 
-function eventFoundResponse (event) {
+function eventFoundResponse (event, userId) {
   return {
     text: `Would you like to join ${event.description}`,
     quick_replies: [

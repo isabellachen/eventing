@@ -9,7 +9,7 @@ module.exports = {
       type: Sequelize.INTEGER
     },
     UserId: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.BIGINT,
       onDelete: 'CASCADE',
       references: {
         model: 'Users',
@@ -29,6 +29,12 @@ module.exports = {
     },
     location: {
       type: Sequelize.GEOMETRY
+    },
+    dates: {
+      type: Sequelize.ARRAY(Sequelize.TEXT)
+    },
+    status: {
+      type: Sequelize.BOOLEAN
     },
     createdAt: {
       allowNull: false,

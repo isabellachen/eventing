@@ -2,6 +2,7 @@
 
 const models = require('../models');
 
+// Add a new user
 module.exports.addUser = async (user) => {
   const {
     id,
@@ -13,18 +14,18 @@ module.exports.addUser = async (user) => {
   if (id && first_name && last_name) {
     const userInfo = await models.User.findOne({
       where: {
-        facebookId: id,
+        id,
       },
     });
 
     if (userInfo) return userInfo;
 
     await models.User.create({
+      id,
       firstName: first_name,
       lastName: last_name,
       pictureUrl: profile_pic,
-      facebookId: id,
     });
-    console.log('Added');
   }
 };
+

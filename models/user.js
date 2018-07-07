@@ -3,7 +3,6 @@
 // Define the User model
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
-    facebookId: DataTypes.STRING,
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
     pictureUrl: DataTypes.STRING

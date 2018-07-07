@@ -1,13 +1,12 @@
 const router = require('koa-router')();
-const { graphqlKoa } = require('apollo-server-koa');
+
 const bot = require('./controllers/bot.controller')
 
 const webhook = require('./controllers/webhook.controller')
 
-const expressPlayground = require('graphql-playground-middleware-koa').default;
 
-// Require schema from graphql
-const schema = require('./graphql');
+const controller = require('./controllers/userRequest.controller');
+
 
 //TO DELETE
 router.get('/webhooks', (ctx) => {
@@ -26,15 +25,9 @@ router.post('/webhooks', webhook.startQuery)
 router.post('/eventPending', bot.eventPending)
 router.post('/eventFound', bot.eventFound)
 
-//Pass the schema as an argument
-router.post('/graphql', graphqlKoa({ schema }));
-
-router.get(
-  '/explore',
-  expressPlayground({
-    endpoint: '/graphql'
-  })
-);
+router
+  .post('/userRequest', controller.addUserRequest)
+  .post('/updateRequestStatus', controller.updateRequestStatus);
 
 router.get('/options', (ctx, next) => {
   let referer = ctx.headers.referer
