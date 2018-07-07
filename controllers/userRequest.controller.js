@@ -35,9 +35,10 @@ module.exports.addUserRequest = async (ctx, next) => {
 module.exports.updateRequestStatus = async(ctx, next) => {
   if (ctx.method !== 'POST') return next();
 
-  const {UserId, status} = ctx.body;
-  if (UserId) {
+  const {UserId, status, EventId} = ctx.body;
+  if (UserId && EventId) {
     await models.UserRequest.findOneAndUpdate(
+      { EventId },
       { UserId },
       { status });
   } else {
