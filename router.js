@@ -1,13 +1,14 @@
 const router = require('koa-router')();
 const { graphqlKoa } = require('apollo-server-koa');
 
-const webhook = require('./webhook')
+const webhook = require('./controllers/webhook')
 
 const expressPlayground = require('graphql-playground-middleware-koa').default;
 
 // Require schema from graphql
 const schema = require('./graphql');
 
+//TO DELETE
 router.get('/webhooks', (ctx) => {
   if (ctx.query['hub.verify_token'] === process.env.VERIFY_TOKEN) {
     ctx.body = ctx.query['hub.challenge']
@@ -20,6 +21,10 @@ router.get('/webhooks', (ctx) => {
 
 router.post('/webhooks', webhook.startQuery)
 
+//After form in FE has been filled
+// router.post('/eventPending', bot.eventPending)
+// router.post('/eventFound', bot.eventFound)
+
 //Pass the schema as an argument
 router.post('/graphql', graphqlKoa({ schema }));
 
@@ -31,9 +36,7 @@ router.get(
 );
 
 router.get('/options', (ctx, next) => {
-  
   let referer = ctx.headers.referer
-
   if (referer) {
     if (referer.indexOf('www.messenger.com') >= 0) {
       ctx.set('X-Frame-Options', 'ALLOW-FROM https://www.messenger.com/');
@@ -43,7 +46,5 @@ router.get('/options', (ctx, next) => {
     // ctx.body = fetchFrontEnd()
   }
 });
-
-
 
 module.exports = router;

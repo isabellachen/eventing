@@ -1,15 +1,15 @@
 // Define the template and webview
-function setRoomPreferences(sender_psid) {
+function setPreferences(sender_psid) {
   let response = {
     attachment: {
       type: "template",
       payload: {
         template_type: "button",
-        text: "OK, tell me what you're interested in, and I'll find an event for you",
+        text: "OK, tell me what you're interested in, and I'll find an event for you.",
         buttons: [{
           type: "web_url",
           url: process.env.HOST + "/options",
-          title: "Set preferences",
+          title: "Set Preferences",
           webview_height_ratio: "full",
           messenger_extensions: true
         }]
@@ -23,8 +23,8 @@ function setRoomPreferences(sender_psid) {
 
 function sendEvent(eventId) {
   let response = {
-    "text": "Would you like to join this event",
-    "quick_replies": [
+    text: "Would you like to join this event",
+    quick_replies: [
       {
         content_type: "text",
         title: "Yes",
@@ -40,5 +40,5 @@ function sendEvent(eventId) {
 }
 
 module.exports = {
-  setRoomPreferences
+  setPreferences
 }

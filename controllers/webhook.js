@@ -1,26 +1,21 @@
 const request = require('request')
-const helpers = require('./helpers')
+const helpers = require('../botResponses')
 const fetch = require('cross-fetch')
-const userData = require('./mocks')
-const data = {
-  users: [],
-  userRequests: [],
-  events: []
-}
-//{psid, location, interests, date/time}
+
+const userController = require('./user.controller');
 
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
-  let response = helpers.setRoomPreferences(sender_psid)
-  callSendAPI(sender_psid, response);   
+  //
 }
 
 // Handles messaging_postbacks events
 function handlePostback(sender_psid, received_postback) {
-  
-  const response = helpers.setRoomPreferences()
-
-  callSendAPI(sender_psid, response)
+  if (received_postback.payload === 'START') {
+    const response = helpers.setPreferences()
+    saveUser(sender_psid)
+    callSendAPI(sender_psid, response)
+  }
 }
 
 // Sends response messages via the Send API
@@ -43,14 +38,9 @@ function callSendAPI(sender_psid, response) {
 }
 
 async function saveUser(sender_psid) {
-  if (data.users.filter(user => sender_psid === user.id).length) {
-    const user = await fetch(`https://graph.facebook.com/v3.0/${sender_psid}?access_token=${process.env.PAGE_ACCESS_TOKEN}`)
-      .then(res => res.json());
-    data.userRequests.push({id: user.id, status: false})
-    data.users.push(user)
-    data.events.push({id:1})
-  } 
-  // controller.addUser(user)
+  const user = await fetch(`https://graph.facebook.com/v3.0/${sender_psid}?access_token=${process.env.PAGE_ACCESS_TOKEN}`)
+    .then(res => res.json());
+  userController.addUser(user)
 }
 
 const startQuery = (ctx) => {
@@ -62,7 +52,6 @@ const startQuery = (ctx) => {
     body.entry.forEach(function (entry) {
       let webhook_event = entry.messaging[0]
       let sender_psid = webhook_event.sender.id;
-      
       if (webhook_event.message) {     
         handleMessage(sender_psid, webhook_event.message)
       } else if (webhook_event.postback.payload) {
@@ -71,17 +60,17 @@ const startQuery = (ctx) => {
         console.log("Webhook received unknown messagingEvent: ", webhook_event);
       }
     });
-
     ctx.status = 200
     ctx.response.body ='EVENT_RECEIVED';
   } else {
     ctx.sendStatus = 404;
   }
   } catch (error) {
-    console.error('[ERR] startSurvey: ', error)
+    console.error('ERROR: ', error)
   }
 }
 
 module.exports = {
-  startQuery
+  startQuery,
+  callSendAPI
 }
