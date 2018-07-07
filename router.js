@@ -1,7 +1,8 @@
 const router = require('koa-router')();
 const { graphqlKoa } = require('apollo-server-koa');
+const bot = require('./controllers/bot.controller')
 
-const webhook = require('./controllers/webhook')
+const webhook = require('./controllers/webhook.controller')
 
 const expressPlayground = require('graphql-playground-middleware-koa').default;
 
@@ -22,8 +23,8 @@ router.get('/webhooks', (ctx) => {
 router.post('/webhooks', webhook.startQuery)
 
 //After form in FE has been filled
-// router.post('/eventPending', bot.eventPending)
-// router.post('/eventFound', bot.eventFound)
+router.post('/eventPending', bot.eventPending)
+router.post('/eventFound', bot.eventFound)
 
 //Pass the schema as an argument
 router.post('/graphql', graphqlKoa({ schema }));
