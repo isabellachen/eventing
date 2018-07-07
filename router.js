@@ -1,13 +1,12 @@
 const router = require('koa-router')();
 const { graphqlKoa } = require('apollo-server-koa');
-const webhook = require('./webhook')
-require('dotenv').config()
 
+const webhook = require('./webhook')
+
+const expressPlayground = require('graphql-playground-middleware-koa').default;
 
 // Require schema from graphql
-
-// Pass the schema as argument
-// router.get('/graphql', graphqlKoa({ schema }));
+const schema = require('./graphql');
 
 router.get('/webhooks', (ctx) => {
   if (ctx.query['hub.verify_token'] === process.env.VERIFY_TOKEN) {
@@ -21,4 +20,30 @@ router.get('/webhooks', (ctx) => {
 
 router.post('/webhooks', webhook.startQuery)
 
-module.exports = router
+//Pass the schema as an argument
+router.post('/graphql', graphqlKoa({ schema }));
+
+router.get(
+  '/explore',
+  expressPlayground({
+    endpoint: '/graphql'
+  })
+);
+
+router.get('/options', (ctx, next) => {
+  
+  let referer = ctx.headers.referer
+
+  if (referer) {
+    if (referer.indexOf('www.messenger.com') >= 0) {
+      ctx.set('X-Frame-Options', 'ALLOW-FROM https://www.messenger.com/');
+    } else if (referer.indexOf('www.facebook.com') >= 0) {
+      ctx.set('X-Frame-Options', 'ALLOW-FROM https://www.facebook.com/');
+    }
+    // ctx.body = fetchFrontEnd()
+  }
+});
+
+
+
+module.exports = router;

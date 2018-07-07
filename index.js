@@ -1,35 +1,34 @@
-const Koa = require('koa');
-const logger = require('koa-logger')();
-const cors = require('@koa/cors');
-const bodyParser = require('koa-bodyparser');
-const cookie = require('koa-cookie').default
-const serve = require('koa-static')
 require('dotenv').config();
+const Koa = require('koa');
+const cors = require('@koa/cors');
+const serve = require('koa-static')
+const logger = require('koa-logger')();
+const bodyparser = require('koa-bodyparser');
+require('./db');
 
+const router = require('./router');
 const errorHandler = require('./middlewares/errorHandler');
 const errorNotFound = require('./middlewares/errorNotFound');
-const router = require('./router');
 
+// Environment variables
 const PORT = process.env.PORT || 3000;
+const ENV = process.env.NODE_ENV || 'development';
 
 const app = new Koa();
-console.log(cookie)
+
 app
   .use(serve('./index'))
   .use(logger)
   .use(cors())
-  .use(bodyParser())
-  .use(cookie())
+  .use(bodyparser())
   .use(router.routes())
   .use(router.allowedMethods());
 
 // Errors handler
-app
-  .use(errorNotFound)
-  .use(errorHandler);
+app.use(errorNotFound).use(errorHandler);
 
 // Initialize server
 app.listen(PORT, (err) => {
-  err && console.error(err); // eslint-disable-line no-console
-  console.log(`🌍 Running server on ${PORT}`); // eslint-disable-line no-console
+  err && console.error('❌ Unable to connect to the server:', err); // eslint-disable-line no-console
+  console.log(`🌍 Running server on ${PORT} - ${ENV} mode!`); // eslint-disable-line no-console
 });
