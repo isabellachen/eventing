@@ -35,8 +35,7 @@ module.exports.addUserRequest = async (ctx, next) => {
 module.exports.updateRequestStatus = async(UserId, EventId, status) => {
   if (UserId && EventId) {
     await models.UserRequest.findOneAndUpdate(
-      { EventId },
-      { UserId },
+      { EventId, UserId },
       { status });
       return true;
   }
