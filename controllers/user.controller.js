@@ -2,6 +2,7 @@
 
 const models = require('../models');
 
+// Create a new user
 module.exports.addUser = async (user) => {
   const {
     id,
@@ -25,6 +26,4 @@ module.exports.addUser = async (user) => {
       pictureUrl: profile_pic,
       facebookId: id,
     });
-    console.log('Added');
-  }
 };

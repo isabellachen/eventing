@@ -5,7 +5,7 @@ const expressPlayground = require('graphql-playground-middleware-koa').default;
 // Require schema from graphql
 const schema = require('./graphql');
 
-//Pass the schema as an argument
+// Pass the schema as an argument
 router.post('/graphql', graphqlKoa({ schema }));
 
 router.get(
