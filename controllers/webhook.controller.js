@@ -24,8 +24,8 @@ async function handleMessage(sender_psid, received_message) {
 // Handles messaging_postbacks events
 function handlePostback(sender_psid, received_postback) {
   if (received_postback.payload === 'START') {
-    console.log('START')
-    const response = helpers.setPreferences()
+    console.log('HANDLE POSTBACK: ', sender_psid)
+    const response = helpers.setPreferences(sender_psid)
     saveUser(sender_psid)
     callSendAPI(sender_psid, response)
   }
@@ -39,6 +39,7 @@ async function saveUser(sender_psid) {
 
 // Sends response messages via the Send API
 function callSendAPI(sender_psid, response) {
+  console.log('call send api')
   request({
     uri: 'https://graph.facebook.com/v2.6/me/messages',
     qs: { access_token: process.env.PAGE_ACCESS_TOKEN },

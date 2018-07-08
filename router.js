@@ -22,7 +22,6 @@ router.get('/webhooks', (ctx) => {
 router.post('/webhooks', webhook.startQuery)
 
 //After form in FE has been filled
-router.post('/eventPending', bot.eventPending)
 router.post('/eventFound', bot.eventFound)
 
 router

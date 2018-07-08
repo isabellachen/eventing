@@ -3,6 +3,7 @@
 const models = require('../models');
 const service = require('../services/matchEvent.service');
 const event = require('./event.controller');
+const botController = require('./bot.controller');
 
 module.exports.addUserRequest = async (ctx, next) => {
   if (ctx.method !== 'POST') return next();
@@ -12,8 +13,9 @@ module.exports.addUserRequest = async (ctx, next) => {
       categories,
       location,
       dates,
-      UserId
+      userId
     } = ctx.request.body;
+
 
     const point = {
       type: 'Point',
@@ -24,17 +26,17 @@ module.exports.addUserRequest = async (ctx, next) => {
     await models.UserRequest.create({
       categories,
       dates,
-      UserId,
-      status: false,
+      UserId: Number(userId),
+      status: 'PENDING',
       location: point,
     });
 
     const currentUserRequest = await models.UserRequest.findOne({
       where: {
-        UserId
+        UserId: Number(userId),
       }
     });
-    ctx.body = await service.matchEvent(currentUserRequest.dataValues.id, UserId, location, dates, categories);
+    ctx.body = await service.matchEvent(currentUserRequest.dataValues.id, Number(userId), location, dates, categories);    
     ctx.status = 201;
   } else {
     return next();

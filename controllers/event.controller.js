@@ -63,7 +63,7 @@ module.exports.getUserActiveRequest = async (userId, message) => {
     },
     include: { model: models.User }
   });
-
+  
   if (userRequest) {
     const activeRequest = await module.exports.getEvent(userRequest.EventId);
       activeRequest.dataValues.UserRequests.forEach(el => {
