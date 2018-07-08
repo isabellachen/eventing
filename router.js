@@ -1,14 +1,18 @@
 const router = require('koa-router')();
 
-const userRequest = require('./controllers/userRequest.controller');
+const bot = require('./controllers/bot.controller');
 const user = require('./controllers/user.controller');
+const webhook = require('./controllers/webhook.controller');
+const userRequest = require('./controllers/userRequest.controller');
 
-// User request endpoints to add a user request and update it
-router
-  .post('/userRequest', userRequest.addUserRequest);
+// Endpoint for the bot webhook
+router.post('/webhooks', webhook.startQuery);
 
-// Endpoint to get all the users in an event
-router
-  .get('/event', user.getEventInfo);
+// After form in FE has been filled
+router.post('/eventFound', bot.eventFound);
+
+// Endpoints user
+router.post('/userRequest', userRequest.addUserRequest);
+router.get('/event', user.getEventInfo);
 
 module.exports = router;

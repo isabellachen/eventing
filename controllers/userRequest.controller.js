@@ -12,7 +12,7 @@ module.exports.addUserRequest = async (ctx, next) => {
       categories,
       location,
       dates,
-      UserId
+      userId
     } = ctx.request.body;
 
     const point = {
@@ -24,24 +24,35 @@ module.exports.addUserRequest = async (ctx, next) => {
     await models.UserRequest.create({
       categories,
       dates,
-      UserId,
+      UserId: Number(userId),
       status: 'ACCEPTED',
       location: point,
     });
 
     const currentUserRequest = await models.UserRequest.findOne({
       where: {
-        UserId
-      }
+        UserId: Number(userId),
+      },
     });
-    ctx.body = await service.matchEvent(currentUserRequest.dataValues.id, UserId, location, dates, categories);
+    ctx.body = await service.matchEvent(
+      currentUserRequest.dataValues.id,
+      Number(userId),
+      location,
+      dates,
+      categories,
+    );
     ctx.status = 201;
   } else {
     return next();
   }
 };
 
-module.exports.updateRequestStatus = async (requestId, UserId, EventId, status) => {
+module.exports.updateRequestStatus = async (
+  requestId,
+  UserId,
+  EventId,
+  status,
+) => {
   if (UserId && EventId) {
     await models.UserRequest.update(
       { EventId, UserId, status },

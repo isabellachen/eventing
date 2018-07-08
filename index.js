@@ -1,10 +1,12 @@
 require('dotenv').config();
 const Koa = require('koa');
 const cors = require('@koa/cors');
+const serve = require('koa-static')
 const logger = require('koa-logger')();
 const bodyparser = require('koa-bodyparser');
-
+const eventController = require('./controllers/event.controller.js')
 require('./db');
+
 const router = require('./router');
 const errorHandler = require('./middlewares/errorHandler');
 const errorNotFound = require('./middlewares/errorNotFound');
@@ -16,6 +18,7 @@ const ENV = process.env.NODE_ENV || 'development';
 const app = new Koa();
 
 app
+  .use(serve('./index'))
   .use(logger)
   .use(cors())
   .use(bodyparser())
