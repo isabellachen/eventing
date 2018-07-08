@@ -7,17 +7,6 @@ const eventPending = (senderPsid) => {
   callSendAPI(senderPsid, botResponses.eventPendingResponse());
 };
 
-const eventFound = (event) => {
-  event = {
-    users: [{ id: 1921533581204203 }],
-    description: 'beach volleyball',
-  };
-  event.users.forEach((user) => {
-    callSendAPI(user.id, botResponses.eventFoundResponse(event, user.id));
-  });
-};
-
 module.exports = {
   eventPending,
-  eventFound,
 };
