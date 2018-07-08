@@ -12,7 +12,8 @@ router.post('/webhooks', webhook.startQuery);
 router.post('/eventFound', bot.eventFound);
 
 // Endpoints user
-router.post('/userRequest', userRequest.addUserRequest);
-router.get('/event', user.getEventInfo);
+router
+  .get('/event', user.getEventInfo)
+  .post('/userRequest', userRequest.addUserRequest);
 
 module.exports = router;

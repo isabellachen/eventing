@@ -2,9 +2,13 @@
 
 // Define the Message model
 module.exports = (sequelize, DataTypes) => {
-  const Message = sequelize.define('Message', {
-    text: DataTypes.STRING
-  }, {});
+  const Message = sequelize.define(
+    'Message',
+    {
+      text: DataTypes.STRING,
+    },
+    {},
+  );
   Message.associate = (models) => {
     // associations can be defined here
     Message.belongsTo(models.Event, {
