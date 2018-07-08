@@ -1,5 +1,7 @@
 'use strict';
 
+const Sequelize = require('sequelize');
+
 const models = require('../models');
 
 module.exports.addEvent = async (category) => {
@@ -12,25 +14,42 @@ module.exports.addEvent = async (category) => {
   });
 
   if (categoryId) {
-    await models.Event.create({
+    return await models.Event.create({
       CategoryId: categoryId.dataValues.id,
       status: 'opened'
     });
-    console.log('EVENT CREATED');
   }
 };
 
 module.exports.getEvent = async (eventId) => {
   if (eventId) {
-    const event = await models.Event.find(
-      { where: { id: eventId } },
-      {
-        include: [
-          { model: models.Category, as: 'Category' },
-          { model: models.UserRequest, as: 'UserRequests' },
-        ],
-      },
-    );
+    const event = await models.Event.find({
+      where: { id: eventId },
+      group: ['UserRequests.id', 'Event.id', 'Category.id'],
+      include: [
+        {
+          model: models.Category
+        },
+        {
+          model: models.UserRequest,
+        },
+      ],
+    });
     return event;
+  }
+};
+
+module.exports.updateEvent = async (id, status) => {
+  if (id) {
+    await models.Event.update(
+      {
+        status
+      },
+      {
+        where: {
+          id
+        }
+      }
+    );
   }
 };
