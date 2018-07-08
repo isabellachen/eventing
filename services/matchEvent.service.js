@@ -18,10 +18,6 @@ module.exports.matchEvent = async (id, UserId, location, dates, categories) => {
     }]
   });
 
-  console.log('====================================');
-  console.log(availableEvents);
-  console.log('====================================');
-
   if (!availableEvents.length) {
     categories.forEach(async (category) => {
       const newEvent = await event.addEvent(category);

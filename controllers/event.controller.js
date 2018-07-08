@@ -2,7 +2,6 @@
 
 const models = require('../models');
 const queries = require('../services/queries');
-const controller = require('./webhook.controller')
 const broadcastService = require('../services/broadcast.service');
 
 module.exports.addEvent = async (category) => {
@@ -17,7 +16,7 @@ module.exports.addEvent = async (category) => {
   if (categoryId) {
     const event = await models.Event.create({
       CategoryId: categoryId.dataValues.id,
-      status: 'OPENED'
+      status: 'OPENED',
     });
     return event;
   }
@@ -49,8 +48,6 @@ module.exports.getUserActiveRequest = async (userId, message) => {
 
   if (userRequest) {
     broadcastService.broadcastToEvent(userRequest.EventId, message, userId);
-
-
   }
 };
 
@@ -67,4 +64,3 @@ module.exports.getEventInfo = async (ctx, next) => {
 
   ctx.body = await queries.getEventInfo(EventId);
 };
-

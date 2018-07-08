@@ -6,17 +6,11 @@ const service = require('../services/matchEvent.service');
 const broadcastService = require('../services/broadcast.service');
 const event = require('./event.controller');
 
-
 module.exports.addUserRequest = async (ctx, next) => {
   if (ctx.method !== 'POST') return next();
 
   if (ctx.request.body) {
-    const {
-      categories,
-      location,
-      dates,
-      userId
-    } = ctx.request.body;
+    const { categories, location, dates, userId } = ctx.request.body;
 
     const point = {
       type: 'Point',
@@ -67,16 +61,17 @@ module.exports.updateRequestStatus = async (
     );
 
     const eventInfo = await queries.getEventInfo(EventId);
-  
     const category = await models.Category.findById(eventInfo.Event.CategoryId);
-    console.log(eventInfo)
-    if ( eventInfo.Users.length === category.userLimit ) {
+    if (eventInfo.Users.length === category.userLimit) {
       event.updateEvent(EventId, 'COMPLETE');
 
-      
-
-      const userNames = eventInfo.Users.map(user => `${user.firstName} ${user.lastName}`)
-      broadcastService.broadcastToEvent(EventId, `You have been added to a new *${eventInfo.Category}* event with \n *${userNames.join(', ')}*`);
+      const userNames = eventInfo.Users.map(user => `${user.firstName} ${user.lastName}`);
+      broadcastService.broadcastToEvent(
+        EventId,
+        `You have been added to a new *${
+          eventInfo.Category
+        }* event with \n *${userNames.join(', ')}*`,
+      );
     }
   }
 };

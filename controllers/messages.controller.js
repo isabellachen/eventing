@@ -1,10 +1,9 @@
-const callSendAPI = require('./webhook.controller')
-const getResponse = require('../botResponses/responses')
-const eventController = require('./event.controller')
+'use strict';
 
-function broadcastMessage (userId, message) {
-  console.log('braodcast message')
-  eventController.getUserActiveRequest(Number(userId), message)
-}
+const eventController = require('./event.controller');
 
-module.exports = {broadcastMessage}
+const broadcastMessage = (userId, message) => {
+  eventController.getUserActiveRequest(Number(userId), message);
+};
+
+module.exports = { broadcastMessage };
