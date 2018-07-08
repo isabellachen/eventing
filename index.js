@@ -4,6 +4,7 @@ const cors = require('@koa/cors');
 const serve = require('koa-static')
 const logger = require('koa-logger')();
 const bodyparser = require('koa-bodyparser');
+const eventController = require('./controllers/event.controller.js')
 require('./db');
 
 const router = require('./router');

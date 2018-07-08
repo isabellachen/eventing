@@ -12,10 +12,6 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'EventId',
       onDelete: 'CASCADE'
     });
-    Event.hasMany(models.Message, {
-      foreignKey: 'EventId',
-      onDelete: 'CASCADE'
-    });
     Event.belongsTo(models.Category, {
       onDelete: 'CASCADE',
       foreignKey: 'CategoryId',
@@ -23,3 +19,4 @@ module.exports = (sequelize, DataTypes) => {
   };
   return Event;
 };
+

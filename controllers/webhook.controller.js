@@ -23,11 +23,11 @@ async function handleMessage(sender_psid, received_message) {
   } else {
     // if a message is sent from a user, check if the user is in an event
     let user
-    activeUsers[sender_psid] ? user = activeUsers[sender_psid] : await getUserFromDb(sender_psid)
-    const event = checkIfUserIsInEvent(sender_psid)
-    if (event) {
-      broadcastMessage(user, event, received_message.text)
-    }
+    // activeUsers[sender_psid] ? user = activeUsers[sender_psid] : await getUserFromDb(sender_psid)
+    
+  
+    messagesController.broadcastMessage(sender_psid, received_message.text)
+
     // if he is, assume the user is trying to talk to the other people in the event
     // broadcastMessage(sender_psid)
   }
@@ -77,7 +77,7 @@ const startQuery = (ctx) => {
       let webhook_event = entry.messaging[0]
       let sender_psid = webhook_event.sender.id;
       if (webhook_event.message) {    
-        console.log(webhook_event.message)
+        console.log('from webhook controller',webhook_event.message)
         handleMessage(sender_psid, webhook_event.message)
       } else if (webhook_event.postback.payload) {
         handlePostback(sender_psid, webhook_event.postback)

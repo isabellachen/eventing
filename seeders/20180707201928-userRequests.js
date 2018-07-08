@@ -86,10 +86,35 @@ module.exports = {
       //Marlon
       id: 8,
       dates: ["2018-7-12", "2018-7-14"],
-      location: Sequelize.fn('ST_GeomFromText','POINT(41.3949147 2.1957668)'),
+      location: Sequelize.fn('ST_GeomFromText', 'POINT(41.3949147 2.1957668)'),
       categories: ["volley", "nightout"],
       status: 'ACCEPTED',
+      EventId: 1,
       UserId: 2082147955157984,
+      createdAt: '2018-07-07 21:13:13.146+02',
+      updatedAt: '2018-07-07 21:13:13.146+02'
+    }, 
+    {
+      //Marco
+      id: 9,
+      dates: ["2018-7-12", "2018-7-14"],
+      location: Sequelize.fn('ST_GeomFromText', 'POINT(41.3949147 2.1957668)'),
+      categories: ["volley", "nightout"],
+      status: 'ACCEPTED',
+      EventId: 1,
+      UserId: 1766956916726715,
+      createdAt: '2018-07-07 21:13:13.146+02',
+      updatedAt: '2018-07-07 21:13:13.146+02'
+    },
+    {
+      //Marco
+      id: 10,
+      dates: ["2018-7-12", "2018-7-14"],
+      location: Sequelize.fn('ST_GeomFromText', 'POINT(41.3949147 2.1957668)'),
+      categories: ["volley", "nightout"],
+      status: 'ACCEPTED',
+      EventId: 1,
+      UserId: 1719389724823081,
       createdAt: '2018-07-07 21:13:13.146+02',
       updatedAt: '2018-07-07 21:13:13.146+02'
     },
