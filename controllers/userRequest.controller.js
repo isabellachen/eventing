@@ -1,6 +1,8 @@
 'use strict';
 
 const models = require('../models');
+const service = require('../services/matchEvent.service');
+const event = require('./event.controller');
 
 module.exports.addUserRequest = async (ctx, next) => {
   if (ctx.method !== 'POST') return next();
@@ -26,18 +28,35 @@ module.exports.addUserRequest = async (ctx, next) => {
       status: false,
       location: point,
     });
+
+    const currentUserRequest = await models.UserRequest.findOne({
+      where: {
+        UserId
+      }
+    });
+    ctx.body = await service.matchEvent(currentUserRequest.dataValues.id, UserId, location, dates, categories);
     ctx.status = 201;
   } else {
     return next();
   }
 };
 
-module.exports.updateRequestStatus = async(UserId, EventId, status) => {
+module.exports.updateRequestStatus = async (requestId, UserId, EventId, status) => {
   if (UserId && EventId) {
-    await models.UserRequest.findOneAndUpdate(
-      { EventId, UserId },
-      { status });
-      return true;
+    await models.UserRequest.update(
+      { EventId, UserId, status },
+      {
+        where: {
+          id: requestId,
+        },
+      },
+    );
+    const currentEvent = await event.getEvent(EventId);
+    if (
+      currentEvent.dataValues.UserRequests.length ===
+      currentEvent.dataValues.Category.userLimit
+    ) {
+      event.updateEvent(EventId, 'COMPLETE');
+    }
   }
-  return false;
-}
+};

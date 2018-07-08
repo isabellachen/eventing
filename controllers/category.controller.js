@@ -9,10 +9,10 @@ module.exports.addCategory = async (data) => {
   } = data;
 
   const foundCategory = await models.Category.findOne({where: {name}});
-  if(foundCategory) return false;
+  if (foundCategory) return false;
 
   return await models.Category.create({
-      name,
-      userLimit
+    name,
+    userLimit
   });
 };

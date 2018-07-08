@@ -27,7 +27,7 @@ router.post('/eventFound', bot.eventFound)
 
 router
   .post('/userRequest', controller.addUserRequest)
-  .post('/updateRequestStatus', controller.updateRequestStatus);
+  .put('/userRequest', controller.updateRequestStatus);
 
 router.get('/options', (ctx, next) => {
   let referer = ctx.headers.referer
