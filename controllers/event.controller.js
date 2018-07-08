@@ -39,8 +39,6 @@ module.exports.getUserActiveRequest = async (userId, message) => {
     include: { model: models.User }
   });
 
-  console.log('USER ID:',  userId)
-
   if (userRequest) {
     const activeRequest = await module.exports.getEvent(userRequest.EventId);
       activeRequest.dataValues.UserRequests.forEach(el => {
@@ -50,10 +48,3 @@ module.exports.getUserActiveRequest = async (userId, message) => {
     })
   }
 }
-
-async function foo() {
-  const event = await module.exports.getEvent(1)
-  console.log(event.dataValues.UserRequests.length)
-}
-
-foo()

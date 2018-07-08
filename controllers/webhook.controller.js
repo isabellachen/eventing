@@ -6,36 +6,25 @@ const userController = require('./user.controller');
 const userRequestController = require('./userRequest.controller');
 const messagesController = require('./messages.controller');
 
-const activeUsers = {}
-const activeEvents = {}
 // Handles messages events
 async function handleMessage(sender_psid, received_message) {
   if (received_message.quick_reply) {
     const payload = JSON.parse(received_message.quick_reply.payload)
     if (payload.type === 'EVENT_ACCEPTED') {
       userRequestController.updateRequestStatus(sender_psid, payload.eventId, 'ACCEPTED')
-      // notify other users in the room notifyUsers(payload)
-      // join room
     }
     if (payload.type === 'EVENT_REJECTED') {
       userRequestController.updateRequestStatus(sender_psid, payload.eventId, 'REJECTED')
     } 
   } else {
-    // if a message is sent from a user, check if the user is in an event
-    let user
-    // activeUsers[sender_psid] ? user = activeUsers[sender_psid] : await getUserFromDb(sender_psid)
-    
-  
     messagesController.broadcastMessage(sender_psid, received_message.text)
-
-    // if he is, assume the user is trying to talk to the other people in the event
-    // broadcastMessage(sender_psid)
   }
 }
 
 // Handles messaging_postbacks events
 function handlePostback(sender_psid, received_postback) {
   if (received_postback.payload === 'START') {
+    console.log('START')
     const response = helpers.setPreferences()
     saveUser(sender_psid)
     callSendAPI(sender_psid, response)
@@ -77,7 +66,6 @@ const startQuery = (ctx) => {
       let webhook_event = entry.messaging[0]
       let sender_psid = webhook_event.sender.id;
       if (webhook_event.message) {    
-        console.log('from webhook controller',webhook_event.message)
         handleMessage(sender_psid, webhook_event.message)
       } else if (webhook_event.postback.payload) {
         handlePostback(sender_psid, webhook_event.postback)
