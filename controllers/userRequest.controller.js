@@ -1,6 +1,7 @@
 'use strict';
 
 const models = require('../models');
+const service = require('../services/matchEvent.service');
 
 module.exports.addUserRequest = async (ctx, next) => {
   if (ctx.method !== 'POST') return next();
@@ -26,6 +27,8 @@ module.exports.addUserRequest = async (ctx, next) => {
       status: false,
       location: point,
     });
+
+    ctx.body = await service.matchEvent(location, dates, categories);
     ctx.status = 201;
   } else {
     return next();
@@ -44,3 +47,4 @@ module.exports.updateRequestStatus = async(ctx, next) => {
     return next();
   }
 }
+
