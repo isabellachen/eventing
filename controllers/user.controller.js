@@ -1,7 +1,6 @@
 'use strict';
 
 const models = require('../models');
-const queries = require('../services/queries');
 
 // Add a new user
 module.exports.addUser = async (user) => {
@@ -28,13 +27,4 @@ module.exports.addUser = async (user) => {
       pictureUrl: profile_pic,
     });
   }
-};
-
-// Get users for event
-module.exports.getEventInfo = async (ctx, next) => {
-  if (ctx.method !== 'GET') return next();
-
-  const { EventId } = ctx.request.query;
-
-  ctx.body = await queries.getEventInfo(EventId);
 };

@@ -1,5 +1,6 @@
 'use strict';
 
+const queries = require('../services/queries');
 const models = require('../models');
 const controller = require('./webhook.controller');
 
@@ -57,4 +58,18 @@ module.exports.getUserActiveRequest = async (userId, message) => {
       }
     });
   }
+};
+
+// Get users for event
+module.exports.getEventInfo = async (ctx, next) => {
+  if (ctx.method !== 'GET') return next();
+
+  const { EventId } = ctx.request.query;
+
+  if (!EventId) {
+    ctx.status = 400;
+    return next();
+  }
+
+  ctx.body = await queries.getEventInfo(EventId);
 };
