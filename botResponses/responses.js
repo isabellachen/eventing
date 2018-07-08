@@ -8,7 +8,7 @@ function setPreferences(sender_psid) {
         text: "OK, tell me what you're interested in, and I'll find an event for you.",
         buttons: [{
           type: "web_url",
-          url: `https://833fac75.ngrok.io/?userId=${sender_psid}`,
+          url: `https://f0199975.ngrok.io/infopicker/?userId=${sender_psid}`,
           title: "Set Preferences",
           webview_height_ratio: "full",
           messenger_extensions: true
