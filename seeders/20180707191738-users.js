@@ -32,15 +32,15 @@ module.exports = {
           createdAt: '2018-07-07 21:13:13.146+02',
           updatedAt: '2018-07-07 21:13:13.146+02',
         },
-        {
-          id: 1719389724823081,
-          firstName: 'Leonardo',
-          lastName: 'Di Vittorio',
-          pictureUrl:
-            'https://scontent.fbcn5-1.fna.fbcdn.net/v/t1.0-1/p320x320/17457492_10212663524413836_3610687518386802195_n.jpg?_nc_cat=0&oh=686a39829a3836638c20fd0303076804&oe=5BE5AC36',
-          createdAt: '2018-07-07 21:13:13.146+02',
-          updatedAt: '2018-07-07 21:13:13.146+02',
-        },
+        // {
+        //   id: 1719389724823081,
+        //   firstName: 'Leonardo',
+        //   lastName: 'Di Vittorio',
+        //   pictureUrl:
+        //     'https://scontent.fbcn5-1.fna.fbcdn.net/v/t1.0-1/p320x320/17457492_10212663524413836_3610687518386802195_n.jpg?_nc_cat=0&oh=686a39829a3836638c20fd0303076804&oe=5BE5AC36',
+        //   createdAt: '2018-07-07 21:13:13.146+02',
+        //   updatedAt: '2018-07-07 21:13:13.146+02',
+        // },
       ],
       {},
     ),

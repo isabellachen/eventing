@@ -1,8 +1,9 @@
 'use strict';
 
-const queries = require('../services/queries');
 const models = require('../models');
-const controller = require('./webhook.controller');
+const queries = require('../services/queries');
+const controller = require('./webhook.controller')
+const broadcastService = require('../services/broadcast.service');
 
 module.exports.addEvent = async (category) => {
   const categoryId = await models.Category.findOne({
@@ -16,7 +17,7 @@ module.exports.addEvent = async (category) => {
   if (categoryId) {
     const event = await models.Event.create({
       CategoryId: categoryId.dataValues.id,
-      status: 'opened',
+      status: 'OPENED'
     });
     return event;
   }
@@ -47,16 +48,9 @@ module.exports.getUserActiveRequest = async (userId, message) => {
   });
 
   if (userRequest) {
-    const activeRequest = await module.exports.getEvent(userRequest.EventId);
-    activeRequest.dataValues.UserRequests.forEach((el) => {
-      if (el.UserId !== userId) {
-        controller.callSendAPI(el.UserId, {
-          text: `*${userRequest.dataValues.User.firstName} ${
-            userRequest.dataValues.User.lastName
-          }*\n${message}`,
-        });
-      }
-    });
+    broadcastService.broadcastToEvent(userRequest.EventId, message, userId);
+
+
   }
 };
 
@@ -73,3 +67,4 @@ module.exports.getEventInfo = async (ctx, next) => {
 
   ctx.body = await queries.getEventInfo(EventId);
 };
+

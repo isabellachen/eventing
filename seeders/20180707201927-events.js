@@ -5,7 +5,6 @@ const Sequelize = require('Sequelize');
 module.exports = {
   up: (queryInterface, Sequelize) => queryInterface.bulkInsert('Events', [
     {
-      id: 1,
       status: 'OPENED',
       CategoryId: 1,
       description: 'Volleyball match',

@@ -11,7 +11,7 @@ module.exports.callSendAPI = (senderPsid, response) => {
         message: response,
       },
     },
-    (error, body) => {
+    (error, response) => {
       if (error) {
         console.error('Error sending message: ', error); // eslint-disable-line no-console
       } else if (response.body.error) {

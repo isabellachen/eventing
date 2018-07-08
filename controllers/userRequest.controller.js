@@ -1,8 +1,11 @@
 'use strict';
 
 const models = require('../models');
+const queries = require('../services/queries');
 const service = require('../services/matchEvent.service');
+const broadcastService = require('../services/broadcast.service');
 const event = require('./event.controller');
+
 
 module.exports.addUserRequest = async (ctx, next) => {
   if (ctx.method !== 'POST') return next();
@@ -62,12 +65,18 @@ module.exports.updateRequestStatus = async (
         },
       },
     );
-    const currentEvent = await event.getEvent(EventId);
-    if (
-      currentEvent.dataValues.UserRequests.length ===
-      currentEvent.dataValues.Category.userLimit
-    ) {
+
+    const eventInfo = await queries.getEventInfo(EventId);
+  
+    const category = await models.Category.findById(eventInfo.Event.CategoryId);
+    console.log(eventInfo)
+    if ( eventInfo.Users.length === category.userLimit ) {
       event.updateEvent(EventId, 'COMPLETE');
+
+      
+
+      const userNames = eventInfo.Users.map(user => `${user.firstName} ${user.lastName}`)
+      broadcastService.broadcastToEvent(EventId, `You have been added to a new *${eventInfo.Category}* event with \n *${userNames.join(', ')}*`);
     }
   }
 };
