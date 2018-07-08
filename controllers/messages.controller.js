@@ -18,7 +18,7 @@ async function notifyUsers (event) {
   })
 }
 
-function broadcastMessage (userId, message) {
+function broadcastMessage (userId, message, context) {
   console.log('braodcast message')
   eventController.getUserActiveRequest(Number(userId), message)
 }
