@@ -5,7 +5,7 @@ module.exports = {
     id: 2082147955157984,
     firstName: 'Marlon',
     lastName: 'Becker',
-    pictureUrl: 'https://platform-lookaside.fbsbx.com/platform/profilepic/?psid=2082147955157984&width=1024&ext=1531250826&hash=AeQ1zC5I_1vtCvfV',
+    pictureUrl: 'https://scontent.fbcn5-1.fna.fbcdn.net/v/t1.0-1/c12.12.155.155/1003374_10151927852927189_750330015_n.jpg?_nc_cat=0&oh=9f2777991b2837397d2f72b1917f670f&oe=5BA8E1AE',
     createdAt: '2018-07-07 21:13:13.146+02',
     updatedAt: '2018-07-07 21:13:13.146+02'
   },
@@ -13,7 +13,7 @@ module.exports = {
     id: 1766956916726715,
     firstName: 'Marco',
     lastName: 'Ghiani',
-    pictureUrl: 'https://platform-lookaside.fbsbx.com/platform/profilepic/?psid=1766956916726715&width=1024&ext=1531250818&hash=AeR_mixdfk9S8vz1',
+    pictureUrl: 'https://scontent.fbcn5-1.fna.fbcdn.net/v/t1.0-1/p320x320/13407270_909636179145231_6057566230788386556_n.jpg?_nc_cat=0&oh=c6a2ab3ea0f6af676a32bdafab76cac8&oe=5BDB979D',
     createdAt: '2018-07-07 21:13:13.146+02',
     updatedAt: '2018-07-07 21:13:13.146+02'
   },
@@ -21,10 +21,11 @@ module.exports = {
     id: 1921533581204203,
     firstName: 'Isabella',
     lastName: 'Chen',
-    pictureUrl: 'https://platform-lookaside.fbsbx.com/platform/profilepic/?psid=1921533581204203&width=1024&ext=1531250804&hash=AeQV1zi9dF3JVm2F',
+    pictureUrl: 'https://scontent.fbcn5-1.fna.fbcdn.net/v/t1.0-1/p320x320/30706746_10213998210603929_1654371653813010432_n.jpg?_nc_cat=0&oh=2800f5a37802e7d66c7ec30fd1fa883f&oe=5BA5B00C',
     createdAt: '2018-07-07 21:13:13.146+02',
     updatedAt: '2018-07-07 21:13:13.146+02'
-  }], {}),
+  },
+  ], {}),
 
   down: (queryInterface, Sequelize) => queryInterface.bulkDelete('Users', null, {})
 };

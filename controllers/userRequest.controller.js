@@ -25,7 +25,7 @@ module.exports.addUserRequest = async (ctx, next) => {
       categories,
       dates,
       UserId,
-      status: false,
+      status: 'ACCEPTED',
       location: point,
     });
 

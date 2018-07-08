@@ -4,7 +4,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => queryInterface.bulkInsert('Categories', [{
     id: 1,
     name: 'Volley',
-    userLimit: 6,
+    userLimit: 4,
     createdAt: '2018-07-07 21:13:13.146+02',
     updatedAt: '2018-07-07 21:13:13.146+02'
   },

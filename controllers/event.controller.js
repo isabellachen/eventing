@@ -21,24 +21,6 @@ module.exports.addEvent = async (category) => {
   }
 };
 
-module.exports.getEvent = async (eventId) => {
-  if (eventId) {
-    const event = await models.Event.find({
-      where: { id: eventId },
-      group: ['UserRequests.id', 'Event.id', 'Category.id'],
-      include: [
-        {
-          model: models.Category
-        },
-        {
-          model: models.UserRequest,
-        },
-      ],
-    });
-    return event;
-  }
-};
-
 module.exports.updateEvent = async (id, status) => {
   if (id) {
     await models.Event.update(

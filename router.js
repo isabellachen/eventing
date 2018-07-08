@@ -1,9 +1,14 @@
 const router = require('koa-router')();
 
-const controller = require('./controllers/userRequest.controller');
+const userRequest = require('./controllers/userRequest.controller');
+const user = require('./controllers/user.controller');
 
+// User request endpoints to add a user request and update it
 router
-  .post('/userRequest', controller.addUserRequest)
-  .put('/userRequest', controller.updateRequestStatus);
+  .post('/userRequest', userRequest.addUserRequest);
+
+// Endpoint to get all the users in an event
+router
+  .get('/event', user.getEventInfo);
 
 module.exports = router;
