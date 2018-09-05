@@ -112,8 +112,8 @@ npm start
 
 ## Facebook Configurations
 
-Follow Facebook's [Setting Up Your Facebook App](https://developers.facebook.com/docs/messenger-platform/getting-started/app-setup/)
-The bot needs to open up a webview. You'll have to whitelist the url the webview lives on. More about [Webviews](https://developers.facebook.com/docs/messenger-platform/webview)
+- Follow Facebook's [Setting Up Your Facebook App](https://developers.facebook.com/docs/messenger-platform/getting-started/app-setup/)
+- The bot needs to open up a webview. You'll have to whitelist the url the webview lives on. More about [Webviews](https://developers.facebook.com/docs/messenger-platform/webview)
 
 ## Tech Stack
 
